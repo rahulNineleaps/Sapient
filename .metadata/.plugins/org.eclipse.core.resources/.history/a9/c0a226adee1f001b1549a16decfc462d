@@ -1,0 +1,27 @@
+package com.employee.service.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+
+import com.employee.service.model.Employee;
+import com.employee.service.repository.EmployeeRepository;
+
+
+@Service
+public class RepositoryService {
+
+	@Autowired
+	EmployeeRepository repository;
+	@Cacheable(value="employee-cache", key="'EmployeeCache'+employee.name+employee.salary+employee.title+employee.compentencies")
+	public List<Employee> getAll() {
+		return repository.findAll();
+	}
+	
+	
+	
+}
